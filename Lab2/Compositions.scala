@@ -38,7 +38,8 @@ object Compositions {
         h compose g compose f
     }
 
-    // b) Напишите функции с использованием `map` и `flatMap`. Вы можете реализовать свое решение прямо в тестовой функции.
+    // b) Напишите функции с использованием `map` и `flatMap`.
+    // Вы можете реализовать свое решение прямо в тестовой функции.
     // Нельзя менять сигнатуры 
     def testMapFlatMap[A, B, C, D](f: A => Option[B])
                                   (g: B => Option[C])
@@ -62,9 +63,10 @@ object Compositions {
     // Точка входа в программу
     def main(args: Array[String]) = {
         println("Task a")
-        
+        println(testCompose((str: String) => str.toInt)((num: Int) => num.toLong)((num: Long) => num.toDouble)("123"))
         println("\nTask b")
-        
+        println(testMapFlatMap((in: Int) => Some(in / 5))((in: Int) => Some(in.toString))((in: String) => in.toList)(Some(500)))
         println("\nTask c")
+        println(testForComprehension((in: Int) => Some(in + 3))((_: Int) => None)((in: Int) => in - 3)(Some(123)))
     }
 }
