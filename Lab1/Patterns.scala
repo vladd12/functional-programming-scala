@@ -1,4 +1,4 @@
-package exercise1
+package Lab1
 
 /* Напишите решение в виде функции. 
  * 
@@ -30,7 +30,7 @@ object PatternMatching {
         val name: String
         var food: Food
     }
-    case class Cat(name: String, var food: Food, weight: Int) extends Animal
+    case class Mammal(name: String, var food: Food, weight: Int) extends Animal
     case class Fish(name: String, var food: Food)             extends Animal
     case class Bird(name: String, var food: Food)             extends Animal
 
@@ -72,8 +72,7 @@ object PatternMatching {
 
     // c) Напишите функцию проверки является ли `value` четным 
     def IsEven(in: Int): Boolean = {
-        var res: Int = in % 2
-        res match {
+        (in % 2) match {
             case 0 => true
             case 1 => false
         }
@@ -100,21 +99,21 @@ object PatternMatching {
     def testWinsA(a: Hand, b: Hand): Result = WinsA(a, b)
 
     // Примечание: используйте определение Animals
-    // e) Верните вес (weight: Int) объекта Cat, иначе верните -1.
-    def ExtractCatWeight(animal: Animal): Int = {
+    // e) Верните вес (weight: Int) объекта Mammal, иначе верните -1.
+    def ExtractMammalWeight(animal: Animal): Int = {
         animal match {
-            case animal: Cat => animal.weight
+            case animal: Mammal => animal.weight
             case _ => -1
         }
     }
 
     // Примените функцию из пункта (e) здесь, не изменяйте сигнатуру
-    def testExtractCatWeight(animal: Animal): Int = ExtractCatWeight(animal)
+    def testExtractMammalWeight(animal: Animal): Int = ExtractMammalWeight(animal)
 
-    // f) Измените поле еда объектов классов Fish и Bird на Plants, класс Cat оставьте неизмененным.
+    // f) Измените поле еда объектов классов Fish и Bird на Plants, класс Mammal оставьте неизмененным.
     def UpdateFood(animal: Animal): Animal = {
         animal match {
-            case animal : Cat => animal
+            case animal : Mammal => animal
             case _ => {
                 animal.food = Plants
                 return animal
@@ -127,33 +126,28 @@ object PatternMatching {
     
     // Точка входа в программу
     def main(args: Array[String]) = {
-        println("Task (a)")
+        println("Task a")
         println(testIntToString(1))
         println(testIntToString(2))
         println(testIntToString(3))
         println(testIntToString(100))
-
-        println("\nTask (b)")
+        println("\nTask b")
         println(testIsMaxAndMoritz("Max"))
         println(testIsMaxAndMoritz("moritz"))
         println(testIsMaxAndMoritz("test?"))
-
-        println("\nTask (c)")
+        println("\nTask c")
         println(testIsEven(10))
         println(testIsEven(15))
-
-        println("\nTask (d)")
+        println("\nTask d")
         println(testWinsA(Rock, Scissor))
         println(testWinsA(Rock, Rock))
         println(testWinsA(Paper, Scissor))
-
-        println("\nTask (e)")
-        val cat = new Cat("Fatty", Meat, 7)
+        println("\nTask e")
+        val cat = new Mammal("Cat", Meat, 7)
         val bird = new Bird("Parrot", Vegetables)
-        println(testExtractCatWeight(cat))
-        println(testExtractCatWeight(bird))
-
-        println("\nTask (f)")
+        println(testExtractMammalWeight(cat))
+        println(testExtractMammalWeight(bird))
+        println("\nTask f")
         println(testUpdateFood(bird).food)
         println(testUpdateFood(cat).food)
     }

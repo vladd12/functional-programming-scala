@@ -1,4 +1,4 @@
-package exercise1
+package Lab1
 
 // Напишите отдельные функции, решающие поставленную задачу. 
 object Functions {
@@ -22,8 +22,11 @@ object Functions {
     
     // Точка входа в программу
     def main(args: Array[String]) = {
+        println("Task a")
         println(testCircle(10))
+        println("\nTask b")
         println(testRectangleCurried(2, 5))
+        println("\nTask c")
         println(testRectangleUc(5, 4))
     }
 }

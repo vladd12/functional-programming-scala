@@ -1,4 +1,4 @@
-package exercise1
+package Lab1
 
 /* 
  * a) Создать класс Animal, который имеет следующие поля:
@@ -22,13 +22,13 @@ class AnimalClass(val name: String, val species: String, val food: String) {
  */
 
 object AnimalClass {
-    val mammal = new AnimalClass("mammal", "cat", "meat")
+    val mammal = new AnimalClass("cat", "mammal", "meat")
     val parrot = new AnimalClass("parrot", "bird", "vegetables")
     val goldfish = new AnimalClass("goldfish", "fish", "plants")
 }
 
 /* 
- * d) Переопределите ваш класс Animal как трейт и создайте объекты класса-образца для Cat, Bird и Fish.
+ * d) Переопределите ваш класс Animal как трейт и создайте объекты класса-образца для Mammal, Bird и Fish.
  *    Вам всё ещё нужно поле `species`?
  */
 
@@ -36,7 +36,7 @@ trait Animal {
   val name: String
   val food: Food
 }
-case class Cat(val name: String, val food: Food) extends Animal
+case class Mammal(val name: String, val food: Food) extends Animal
 case class Bird(val name: String, val food: Food) extends Animal
 case class Fish(val name: String, val food: Food) extends Animal
  
@@ -47,13 +47,13 @@ case class Fish(val name: String, val food: Food) extends Animal
  
 object Animal {
     def knownAnimal(name: String): Boolean = {
-        var flag: Boolean = name == "mammal" | name ==  "parrot"| name == "goldfish"
+        var flag: Boolean = name == "cat" | name ==  "parrot"| name == "goldfish"
         return flag
     }
     
     def apply(name: String): Option[Animal] = {
         name match {
-            case "cat" => Some(Cat("mammal", Meat))
+            case "cat" => Some(Mammal("cat", Meat))
             case "parrot" => Some(Bird("parrot", Vegetables))
             case "goldfish" => Some(Fish("goldfish", Plants))
             case _ => None
@@ -88,15 +88,15 @@ object Food {
 // Для главного метода
 object Main {
     def main(args: Array[String]) = {
-        println(Animal.knownAnimal("mammal"))
+        println(Animal.knownAnimal("cat"))
         println(Animal.knownAnimal("parrot"))
         println(Animal.knownAnimal("goldfish"))
         println(Animal.knownAnimal("dog"))
-
+        println()
         println(Animal.apply("cat"))
         println(Animal.apply("parrot"))
         println(Animal.apply("dog"))
-
+        println()
         println(Food.apply("meat"))
         println(Food.apply("vegetables"))
         println(Food.apply("hotdog"))
