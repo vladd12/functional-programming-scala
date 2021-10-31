@@ -45,23 +45,19 @@ object Lab1 {
                 }
             }
             set.clear()
-            if (flag) {
-                sum = sum + i
-                // println(i)
-            }
+            if (flag) sum = sum + i
         }
         return sum
     }
     
     // Task 19
-    // не понял
-    def task19(list: List[AnyVal]) = {
-        var arr = ArrayBuffer.empty[Int]
+    def task19(list: List[Any]): List[Any] = {
+        var arr = ArrayBuffer.empty[Any]
         for (i <- list) {
-            
-            
-            
+            if (i.isInstanceOf[Int]) arr += i
+            else arr ++= task19(i.asInstanceOf[List[Any]])
         }
+        return arr.toList
     }
     
     // Task 20
@@ -180,20 +176,17 @@ object Lab1 {
     def task30(n: Int): Int = {
         var max = 1
         for (i <- 1 to n) {
-            // println(i)
             var sum = 0
             var num = i
             while(num > 0) {
                 sum = sum + (num % 10)
                 num = num / 10
             }
-            // println(sum)
             var power = 2
             var res = 1
             var flag = false
             while(res < i) {
                 res = pow(sum, power).toInt
-                // println(res + " " + power)
                 if (res > i) flag = false
                 else if (res == i) flag = true
                 else power = power + 1
@@ -241,7 +234,8 @@ object Lab1 {
                 println(natural_sum(100, 1000))
             }
             else if (task == 19) {
-                // не сделано
+                println(task19(List(List(1, 1), 2, List(3, List(5, 8)))))
+                // Результат: List(1, 1, 2, 3, 5, 8)
             }
             else if (task == 20) {
                 println(task20(1000))
