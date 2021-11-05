@@ -7,46 +7,54 @@ object Typeclasses {
         def reverse(a: T): T
 
     // b) Реализуйте функцию Reverse для String.
-    class ReversableString extends Reversable[String] {
-        def reverse(a: String): String = {
-            (for(i <- a.length - 1 to 0 by -1) yield a(i)).mkString
+    object Reversable {
+        implicit object ReversableString extends Reversable[String] { 
+            def reverse(a: String): String = {
+                (for(i <- a.length - 1 to 0 by -1) yield a(i)).mkString
+            }
         }
     }
+    
+    // Вспомогательная функция
+    def Reverse[T](str: T)(implicit rv: Reversable[T]): T = rv.reverse(str)   
 
     // Примените тайп-класс-решение из пункта (a) здесь
-    def testReversableString(str: String): String = ReversableString().reverse(str)
+    def testReversableString(str: String): String = Reverse(str)
 
     // c) Определите тайп-класс Smash таким образом чтобы в нем была функция smash, 
     // которая выполняет операцию со значениями одного типа.
-
     trait Smash[T]:
         def smash(a: T, b: T): T
 
     // d) Реализуйте  функции Smash для типа Int и Double.
     // Используйте сложение для типа Int у умножение для типа Double.
-    class SmashInt extends Smash[Int] {
-        def smash(a: Int, b: Int): Int = a + b
+    object Smash {
+        implicit object SmashInt extends Smash[Int] {
+            def smash(a: Int, b: Int): Int = a + b
+        }
+        
+        implicit object SmashDouble extends Smash[Double] {
+            def smash(a: Double, b: Double): Double = a * b
+        }
+        
+        // e) Реализуйте функцию Smash для типа String. Необходимо выполнить конкатенацию строк,
+        // которые будут получены в качестве параметра. 
+        implicit object SmashString extends Smash[String] {
+            def smash(a: String, b: String): String = a + b
+        }
     }
-
-    class SmashDouble extends Smash[Double] {
-        def smash(a: Double, b: Double): Double = a * b
-    }
+    
+    // Вспомогательная функция
+    def smashType[T](a: T, b: T)(implicit sm: Smash[T]): T = sm.smash(a, b)
 
     // Примените тайп-класс-решение из пункта (d) здесь
-    def testSmashInt(a: Int, b: Int): Int = SmashInt().smash(a, b)
+    def testSmashInt(a: Int, b: Int): Int = smashType(a, b)
 
     // Примените тайп-класс-решение из пункта (d) здесь
-    def testSmashDouble(a: Double, b: Double): Double = SmashDouble().smash(a, b)
+    def testSmashDouble(a: Double, b: Double): Double = smashType(a, b)
 
-    // e) Реализуйте функцию Smash для типа String. Необходимо выполнить конкатенацию строк,
-    // которые будут получены в качестве параметра. 
-
-    class SmashString extends Smash[String] {
-        def smash(a: String, b: String): String = a + b
-    }
-
-    // Примените тайп-класс-решение из пункта (d) здесь
-    def testSmashString(a: String, b: String): String = SmashString().smash(a, b)
+    // Примените тайп-класс-решение из пункта (e) здесь
+    def testSmashString(a: String, b: String): String = smashType(a, b)
     
     // Точка входа в программу
     def main(args: Array[String]) = {
