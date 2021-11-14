@@ -1,7 +1,6 @@
 package Lab1
 
-/* 
- * a) Создать класс Animal, который имеет следующие поля:
+/* a) Создать класс Animal, который имеет следующие поля:
  *  - name: String (название)
  *  - species: String (вид)
  *  - food: String
@@ -27,9 +26,8 @@ object AnimalClass {
     val goldfish = new AnimalClass("goldfish", "fish", "plants")
 }
 
-/* 
- * d) Переопределите ваш класс Animal как трейт и создайте объекты класса-образца для Mammal, Bird и Fish.
- *    Вам всё ещё нужно поле `species`?
+/* d) Переопределите ваш класс Animal как трейт и создайте объекты класса-образца для Mammal, Bird и Fish.
+ * Вам всё ещё нужно поле `species`?
  */
 
 trait Animal {
