@@ -21,7 +21,7 @@ package com.app {
 
         "UserRoutes" should {
             "return no users if no present (GET /users)" in {
-                val request = HttpRequest(uri = "localhost/users")
+                val request = HttpRequest(uri = "http://localhost:8080/users")
                 request ~> routes ~> check {
                     status should ===(StatusCodes.OK)
                     contentType should ===(ContentTypes.`application/json`)
@@ -32,7 +32,7 @@ package com.app {
             "be able to add users (POST /users)" in {
                 val user = User("Kapi", 42, "jp")
                 val userEntity = Marshal(user).to[MessageEntity].futureValue
-                val request = Post("localhost/users").withEntity(userEntity)
+                val request = Post("http://localhost:8080/users").withEntity(userEntity)
                 request ~> routes ~> check {
                     status should ===(StatusCodes.Created)
                     contentType should ===(ContentTypes.`application/json`)
@@ -41,7 +41,7 @@ package com.app {
             }
 
             "be able to remove users (DELETE /users)" in {
-                val request = Delete(uri = "localhost/users/Kapi")
+                val request = Delete(uri = "http://localhost:8080/users/Kapi")
                 request ~> routes ~> check {
                     status should ===(StatusCodes.OK)
                     contentType should ===(ContentTypes.`application/json`)
